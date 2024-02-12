@@ -12,7 +12,7 @@ app.use(express.static("public"));
 const congObj = {
   host: "127.0.0.1",
   user: "root",
-  password: "Money@90410",
+  
   database: "proje",
   dateStrings: true,
 };
