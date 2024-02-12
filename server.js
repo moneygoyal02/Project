@@ -78,7 +78,7 @@ function sendLoginConfirmationEmail(email) {
 
   const mailOptions = {
     from: {
-      name: "Your Name",
+      name: "money goyal",
       address: process.env.user,
     },
     to: [email],
