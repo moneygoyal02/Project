@@ -12,7 +12,7 @@ app.use(express.static("public"));
 const congObj = {
   host: "127.0.0.1",
   user: "root",
-  
+  password: "Money@90410",
   database: "proje",
   dateStrings: true,
 };
@@ -616,6 +616,7 @@ app.get("/ssp",function(req,resp){
 });
 
 app.get("/angular-fetch-allserviproviders",function(req,resp){
+  
   mysql.query("select * from serProvider", function (err, result) {
     if (err) {
       resp.send(err.message);
