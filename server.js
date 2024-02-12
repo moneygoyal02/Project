@@ -625,3 +625,11 @@ app.get("/angular-fetch-allserviproviders",function(req,resp){
   });
 
 })
+
+// ----------------------------service provide dash---------------------------------------
+
+app.get("/spd",function(req,resp){
+
+  let filepath=process.cwd()+"/public/service-provider-dash.html";
+  resp.sendFile(filepath);
+});
