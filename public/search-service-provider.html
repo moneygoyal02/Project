@@ -22,8 +22,28 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <script>
+         var module = angular.module("myModule", []);
+    var controller = module.controller(
+      "myController",
+      function ($scope, $http) {
+        $scope.jsonRecordsAry = [];
+        //   ----------Fetch-all-------------------------------
+        $scope.doFetchAll = function () {
+          let url = "/angular-fetch-allserviproviders";
+          $http.get(url).then(success, errors);
+          function success(response) {
+            $scope.jsonRecordsAry = response.data;
+          }
+          function errors(response) {
+            alert(response.data);
+          }
+        };
+      }
+    );
+    </script>
   </head>
-  <body style="background-color: #e2e8f0;">
+  <body ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();" style="background-color: #e2e8f0;">
     <nav class="navbar fixed-top " style="background-color: #3c4856; ">
         <div class="container-fluid justify-content-end">
             <div style="margin-right: 15%; width: 65%">
@@ -62,12 +82,14 @@
       
         <div class="row">
           <div class="col-md-4" ng-repeat="obj in jsonRecordsAry">
-            <div class="card mb-3">
+            <div class="card mb-3" style="width: 300px;">
+                <img ng-src="/pic/{{obj.ppic}}" class="card-img-top" style="height: 222px; width: 192px; margin-left: 15%;" >
               <div class="card-body">
                 <h5 class="card-title">{{obj.emailid}}</h5>
-                <p class="card-text">Password: {{obj.pwd}}</p>
-                <p class="card-text">Created: {{obj.dos}}</p>
-                <p class="card-text">Status: {{obj.status}}</p>
+                <p class="card-text">Name: {{obj.FName}}</p>
+                <p class="card-text">Gender: {{obj.gender}}</p>
+                <p class="card-text">Service: {{obj.serviceCat}}</p>
+                <p class="card-text">Since: {{obj.Since}}</p>
               </div>
             </div>
           </div>

@@ -615,3 +615,12 @@ app.get("/ssp",function(req,resp){
   resp.sendFile(filepath);
 });
 
+app.get("/angular-fetch-allserviproviders",function(req,resp){
+  mysql.query("select * from serProvider", function (err, result) {
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else resp.send(result);
+  });
+
+})
