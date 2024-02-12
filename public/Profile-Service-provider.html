@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile-Service-provider</title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .ok {
+        color: green;
+      }
+      .not-ok {
+        color: red;
+      }
+    </style>
+    <!-- ---------------------------------email checker  validator------------------------------------------- -->
+    <script>
+      $(document).ready(function () {
+        $("#EmailAdd").blur(function () {
+          let obj = {
+            url: "/checkk-email-serprof",
+            data: {
+              kuchEmail: $("#EmailAdd").val(),
+            },
+          };
+
+          $.ajax(obj)
+            .done(function (resp) {
+              $("#errE").html(resp);
+              if (resp === "Email already exists") {
+                $("#errE").removeClass("ok").addClass("not-ok");
+              } else {
+                $("#errE").addClass("ok").removeClass("not-ok");
+                $("#savebtn").prop("disabled", false);
+              }
+            })
+            .fail(function (err) {
+              alert("Error=" + err);
+            });
+        });
+
+        $("#EmailAdd").keyup(function () {
+          let email = $("#EmailAdd").val();
+          var r = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+          if (r.test(email) == false) {
+            $("#errE").html("Invalid").addClass("not-ok").removeClass("ok");
+          } else {
+            $("#errE").html("Valid").addClass("ok").removeClass("not-ok");
+          }
+        });
+
+        $("#since").keyup(function () {
+          let inputValue = $("#since").val();
+          var numericRegex = /^[0-9]+$/;
+
+          if (!numericRegex.test(inputValue)) {
+            
+              $("#since").addClass("is-invalid").removeClass("is-valid");
+          } else {
+            $("#since").removeClass("is-invalid");
+          }
+        });
+
+        $("#contact").keyup(function () {
+          let inputValue = $("#contact").val();
+          var numericRegex = /^[0-9]+$/;
+
+          if (!numericRegex.test(inputValue)) {
+            
+              $("#contact").addClass("is-invalid").removeClass("is-valid");
+          } else {
+            $("#contact").removeClass("is-invalid");
+          }
+        });
+
+        $("#idproof").keyup(function () {
+          let inputValue = $("#idproof").val();
+          var numericRegex = /^[0-9]+$/;
+
+          if (!numericRegex.test(inputValue)) {
+            
+              $("#idproof").addClass("is-invalid").removeClass("is-valid");
+          } else {
+            $("#idproof").removeClass("is-invalid");
+          }
+        });
+      });
+    </script>
+    <!-- ----------------------------------- SEARCH  -------------------------------------------------- -->
+    <script>
+      $(document).ready(function(){
+
+        $("#srch").click(function(){
+
+          let obj={
+            url : "/searche",
+            data: {email: $("#EmailAdd").val()},
+
+          };
+
+          $.ajax(obj).done(function(ary){
+
+            // alert(JSON.stringify(ary));
+
+            $("#Name").val(ary[0].FName);
+            $("#contact").val(ary[0].contact);
+            // $("#Name").val(ary[0].gender);
+            $("#Addr").val(ary[0].Firmaddress);
+            $("#since").val(ary[0].Since);
+            $("#sc").val(ary[0].serviceCat);
+            $("#firm").val(ary[0].firm);
+            $("#web").val(ary[0].website);
+            $("#idproof").val(ary[0].idproof);
+            $("#textar").val(ary[0].textt);
+
+            if(ary[0].gender==="male")
+            $("#male").prop("checked",true);
+          else
+          $("#female").prop("checked",true);
+
+          $("#img-preview").prop("src","/uploads/"+ary[0].ppic);
+
+            $("#hdn").val(ary[0].ppic);
+         
+
+
+
+
+          }).fail(function(err){
+            alert("Error=" + err)
+          })
+        })
+      })
+    </script>
+  </head>
+  <body style="background-color: #e2e8f0">
+    <form action="/serv-save" method="post" enctype="multipart/form-data">
+      
+      <input type="hidden" id="hdn" name="hdn" />
+      <div
+        class="container d-flex justify-content-center"
+        style="
+          margin-top: 2%;
+          width: 65%;
+          background-color: white;
+          border-radius: 10px;
+        "
+      >
+        <div class="row mt-2 mb-3 g-3 needs-validation" novalidate>
+          <!-- ---------------------------HEADER---------------------------------------- -->
+          <div class="row mb-2">
+            <center>
+              <p style="font-size: 24px">Service Provider Profile</p>
+            </center>
+          </div>
+
+          <!-- --------------------email-add-row------------------------------------- -->
+          <div class="row align-items-end">
+            <div class="col-md-6">
+              <label for="EmailAdd" class="form-label bg-light"
+                >Email Id <span id="errE"></span
+              ></label>
+              <input
+                type="text"
+                class="form-control"
+                id="EmailAdd"
+                name="email"
+                placeholder="Enter your Email address"
+                value="abcde@gmail.com"
+                required
+              />
+            </div>
+
+            <div class="col-md-5 mt-2">
+              <button class="btn btn-primary" id="srch" type="button">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div class="row mt-3 mb-1 align-items-end">
+            <!-- -------------------------NAME------------------------------------------------------- -->
+            <div class="col-md-4">
+              <label for="Name" class="form-label">Name</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control bg-light"
+                id="Name"
+                required
+              />
+            </div>
+
+            <!-- -------------------------CONTACT NUMBER------------------------------------------------------- -->
+
+            <div class="col-md-4">
+              <label for="contact" class="form-label">Contact Number</label>
+              <div class="input-group has-validation">
+                <input
+                  type="text"
+                  name="contact"
+                  class="form-control bg-light"
+                  id="contact"
+                  minlength="10"
+                  maxlength="10"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- ---------------------------------radio buttons------------------------------------------------------------- -->
+
+            <div class="col-md-4">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input form-check-input-lg bg-light fs-6"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="male"
+                  value="male"
+                />
+                <label class="form-check-label" for="male">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input form-check-input-lg bg-light fs-6"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="female"
+                  value="female"
+                />
+                <label class="form-check-label" for="female">Female</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------- firm ADDRESS ------------------------------------------------------ -->
+          <div class="row mt-3 mb-1 align-items-center">
+            <div class="col-md-7">
+              <label for="Addr" class="form-label">Location/Firm Address</label>
+              <input
+                type="text"
+                name="address"
+                class="form-control bg-light"
+                id="Addr"
+                required
+              />
+            </div>
+            <!-- -----------------------------------------since------------------------------------------------------------- -->
+            <div class="col-md-4">
+              <label for="since" class="form-label">Since <span id="numsin"></span></label>
+              <input
+                type="text"
+                name="since"
+                class="form-control bg-light"
+                id="since"
+                maxlength="4"
+                minlength="4"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- -------------------------- service category-------------------------------------------- -->
+          <div class="col-md-3">
+            <label for="sc" class="form-label"
+              >Select a Service Category:</label
+            >
+            <select
+              class="form-select bg-light fs-6"
+              name="sc"
+              id="sc"
+              onchange="dofill(this, stc);"
+              required
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="maid">Maid Services</option>
+              <option value="gardening">Gardening/Landscaping Services</option>
+              <option value="electrical">Electrical Services</option>
+              <option value="cleaning">Home Cleaning Services</option>
+
+              <option value="painting">Painting Services</option>
+              <option value="handyman">Handyman Services</option>
+              <option value="pestcontrol">Pest Control Services</option>
+              <option value="roofing">Roofing Services</option>
+              <option value="interiordesign">Interior Design Services</option>
+              <option value="car">Car Services</option>
+
+              <option value="catering">Catering Services</option>
+
+              <option value="fitnessequipment">
+                Fitness Equipment Installation
+              </option>
+            </select>
+          </div>
+
+          <!-- ------------------------Firm------------------------------------------- -->
+
+          <div class="col-md-4">
+            <label for="firm" class="form-label">Firm (if Any)</label>
+            <input
+              type="text"
+              name="firm"
+              class="form-control bg-light"
+              id="firm"
+              required
+            />
+          </div>
+
+          <!-- --------------------website----------------------------------------------------------------- -->
+
+          <div class="col-md-4">
+            <label for="web" class="form-label">Website (if Any)</label>
+            <input
+              type="text"
+              name="web"
+              class="form-control bg-light"
+              id="web"
+              required
+            />
+          </div>
+
+          <!-- --------------------------------------------id-proof-------------------------------------------------------- -->
+
+          <div class="col-md-4">
+            <label for="id-proof" class="form-label">Id Proof</label>
+            <input
+              type="text"
+              name="id"
+              class="form-control bg-light"
+              id="idproof"
+              maxlength="12"
+              minlength="12"
+              required
+            />
+          </div>
+
+          <!-- -----------------------------profile pic------------------------------------------ -->
+
+          <div class="col-md-4">
+            <label for="ppic" class="form-label">Profile Pic</label>
+            <div class="input-group">
+              <input
+                type="file"
+                name="ppic"
+                class="form-control bg-light"
+                id="ppic"
+                src=""
+                aria-describedby="inputGroupFileAddon04"
+                required
+                aria-label="Upload"
+                onchange="previewImage(this)"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <img id="img-preview" src=""  />
+          </div>
+
+          <!-- ----------------------------------------text area----------------------------------------------- -->
+
+          <div class="col-md-6">
+            <div class="form-floating bg-light fs-6">
+              <textarea
+                class="form-control"
+                name="txtar"
+                id="textar"
+              ></textarea>
+              <label for="textar"
+                >Specialization/Other Info/Previous Work</label
+              >
+            </div>
+          </div>
+
+          <!-- ----------------------------CHECK BOX---------------------------------------------------- -->
+          <div class="col-12">
+            <div class="form-check">
+              <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+              </label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="checked"
+                id="invalidCheck"
+                name="checkbox"
+                required
+              />
+            </div>
+          </div>
+          <!-- -------------------------------------------------------------------------------- -->
+          <div class="col-12 text-center">
+            <button class="btn btn-primary" id="savebtn" disabled type="submit">
+              upload Data
+            </button>
+            <button
+              class="btn btn-primary"
+              id="updbtn"
+              type="submit"
+              formaction="/usp"
+            >
+              Edit My Info
+            </button>
+          </div>
+          <!-- 
+        <div class="col-12 text-center">
+          <span id="err"></span>
+        </div> -->
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>USERS-MANAGER</title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      th {
+        font-weight: 400;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <script>
+      var module = angular.module("myModule", []);
+      var controller = module.controller(
+        "myController",
+        function ($scope, $http) {
+          $scope.jsonRecordsAry = [];
+          //   ----------Fetch-all-------------------------------
+          $scope.doFetchAll = function () {
+            let url = "/angular-fetch-all";
+            $http.get(url).then(success, errors);
+            function success(response) {
+              $scope.jsonRecordsAry = response.data;
+            }
+            function errors(response) {
+              alert(response.data);
+            }
+          };
+          //   ----------Block-------------------------------
+          $scope.doBlock = function (selecEmail) {
+            //let url="/angular-delete?emailkuch="+selemailid+"&pwd="+selemailid;
+            //    let url="/angular-delete?emailkuch="+selemailid;
+
+            let url = "/block?email="+selecEmail;
+            $http.get(url).then(success, errors);
+            function success(response) {
+            //   alert(response.data);
+              window.location.reload();   //google 
+            }
+            function errors(response) {
+              alert(response.data);
+            }
+          };
+          //   ----------RESUME-------------------------------
+          $scope.doResume = function (selecEmail) {
+           
+
+            let url = "/resume?email="+selecEmail;
+            $http.get(url).then(success, errors);
+            function success(response) {
+            //   alert(response.data);
+              window.location.reload();  
+            }
+            function errors(response) {
+              alert(response.data);
+            }
+          };
+
+
+        }
+      );
+    </script>
+  </head>
+  <body ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();" style="background-color: #e2e8f0;">
+    <nav class="navbar fixed-top" style="background-color: #3c4856; ">
+        <div class="container-fluid justify-content-end">
+            <div style="margin-right: 15%; width: 65%">
+                <marquee
+                  behavior="scroll"
+                  direction="left"
+                  style="
+                    color: #009afa;
+                    width: 100%;
+                    text-size-adjust: 100%;
+                    font-size: large;
+                    position: relative;
+                    left: 50px;
+                    font-weight: bolder;
+                  "
+                >
+                  Admin-Dash
+                </marquee>
+              </div>
+            
+            <a
+            class="btn btn-primary me-2  btn-sm"
+            href="/admin"
+           
+            >Home</a
+        </div>
+    </nav>
+
+    <div
+      class="container d-flex  flex-column "
+      style="width: 1200px; margin-top: 60px;"
+    >
+      <div class="row mt-3 mb-2">
+        <div class="col-md-4" style="margin-left: 8%;">
+          <h4>USERS</h4>
+        </div>
+      </div>
+
+      <div class="row" style="width: 100%; justify-content: center">
+        <div class="col-md-10">
+          <table class="table table-striped">
+            <tr>
+              <th>Email Id</th>
+              <th>Password</th>
+              <th>User Type</th>
+              <th>Created</th>
+              <th>Status</th>
+              <th>Operations</th>
+            </tr>
+            <tr ng-repeat="obj in jsonRecordsAry">
+              <td>{{obj.emailid}}</td>
+              <td>{{obj.pwd}}</td>
+              <td>{{obj.usertype}}</td>
+              <td>{{obj.dos}}</td>
+              <td style="justify-content: center;">{{obj.status}}</td>
+              <th>
+                <a
+                  class="btn btn-danger btn-sm"
+                  ng-click="doBlock(obj.emailid);"
+                 
+                  >Block
+                </a>
+                <a
+                  class="btn btn-primary btn-sm mt-1"
+                  ng-click="doResume(obj.emailid);"
+                  >Resume</a
+                >
+              </th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
