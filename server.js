@@ -633,3 +633,23 @@ app.get("/spd",function(req,resp){
   let filepath=process.cwd()+"/public/service-provider-dash.html";
   resp.sendFile(filepath);
 });
+
+// ------------------------find-job------------------------------------
+
+app.get("/fj",function(req,resp){
+
+  let filepath=process.cwd()+"/public/find-job.html";
+  resp.sendFile(filepath);
+});
+
+app.get("/angular-fetch-alljobs",function(req,resp){
+  
+  mysql.query("select * from posttask", function (err, result) {
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else resp.send(result);
+  });
+
+})
+
