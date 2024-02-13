@@ -158,8 +158,22 @@
 
           $.ajax(obj)
 
-            .done(function (resp) {
-              alert( resp);
+            .done(function (resp) 
+            {
+
+              if(resp=="Customer")
+              {
+                localStorage.setItem("activeUser",email);
+               location.href="customer-Dash.html";
+              }
+              else if(resp=="Provider")
+              {
+                localStorage.setItem("activeUser",email);
+                location.href="service-provider-dash.html";
+                
+              }
+              else
+              alert(resp);
             })
 
             .fail(function (err) {
@@ -292,8 +306,8 @@
                     required
                   >
                     <option selected disabled value="">Choose...</option>
-                    <option value="Customer-Dash">Customer-Dash</option>
-                    <option value="Service-Provider-Dash">
+                    <option value="Customer">Customer-Dash</option>
+                    <option value="Provider">
                       Service-Provider-Dash
                     </option>
                   </select>

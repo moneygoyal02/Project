@@ -152,8 +152,16 @@
         })
       })
     </script>
+    <script>
+     
+      function fetchUser()
+       {
+         let activeUser=localStorage.getItem("activeUser");
+         document.querySelector("#EmailAdd").value=activeUser;
+       }
+     </script>
   </head>
-  <body style="background-color: #e2e8f0">
+  <body style="background-color: #e2e8f0" onload="fetchUser()">
     <nav class="navbar  " style="background-color: #3c4856; ">
       <div class="container-fluid justify-content-end">
          
@@ -200,6 +208,7 @@
                 placeholder="Enter your Email address"
                 value="abcde@gmail.com"
                 required
+                readonly
               />
             </div>
 
