@@ -634,6 +634,23 @@ app.get("/spd",function(req,resp){
   resp.sendFile(filepath);
 });
 
+app.get("/changepassserv", function (req, resp) {
+  let email = req.query.email;
+  let oldpass = req.query.oldpwd;
+  let newpass = req.query.newpwd;
+
+  mysql.query(
+    "update users set pwd = ? WHERE emailid = ? and pwd = ?",
+    [newpass, email, oldpass],
+    function (err) {
+      if (err) {
+        resp.send("Error updating password");
+      } else resp.send("Update successful");
+    }
+  );
+});
+
+
 // ------------------------find-job------------------------------------
 
 app.get("/fj",function(req,resp){
