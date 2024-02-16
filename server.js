@@ -181,9 +181,10 @@ app.get("/cp", function (req, resp) {
   resp.sendFile(filepath);
 });
 
-app.post("/savee", function (req, resp) {
+app.post("/saveee", function (req, resp) {
   // data : {name : name ,contact : cont , address : addre , state :state , city : city , ppic : pic},
   // (emailid varchar(30) primary key , FName varchar(30) ,  contact varchar(15) , address varchar(100) ,  city varchar(30) , state varchar(50) , ppic varchar(300) );
+  
   if (req.body.checkbox === "checked") {
     const namee = req.body.name;
     const contact = req.body.contact;
@@ -193,13 +194,15 @@ app.post("/savee", function (req, resp) {
 
     const email = req.body.email;
 
+    console.log(email);
+
     let filename;
     if (req.files == null) filename = "nopic.jpg";
     else {
       filename = req.files.ppic.name;
       let path = process.cwd() + "/public/uploads/" + filename;
       req.files.ppic.mv(path);
-      zx;
+      
     }
 
     req.body.ppic = filename;
