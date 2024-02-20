@@ -29,6 +29,80 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+      body {
+        font-family: "poppins", sans-serif;
+      }
+
+      .footer-clean {
+  padding:50px 0;
+  background-color:#eff2f7;
+  color:#4b4c4d;
+}
+
+.footer-clean h3 {
+  margin-top:0;
+  margin-bottom:12px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.footer-clean ul {
+  padding:0;
+  list-style:none;
+  line-height:1.6;
+  font-size:14px;
+  margin-bottom:0;
+}
+
+.footer-clean ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+.footer-clean ul a:hover {
+  opacity:1;
+}
+
+.footer-clean .item.social {
+  text-align:right;
+}
+
+
+
+.footer-clean .item.social > a {
+  font-size:24px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  border:1px solid #ccc;
+  margin-left:10px;
+  margin-top:22px;
+  color:inherit;
+  opacity:0.75;
+}
+
+.footer-clean .item.social > a:hover {
+  opacity:0.9;
+}
+
+
+
+.footer-clean .copyright {
+  margin-top:14px;
+  margin-bottom:0;
+  font-size:13px;
+  opacity:0.6;
+}
+    </style>
 
     <!-- ------------------------------------------------------------------------- -->
 
@@ -158,22 +232,14 @@
 
           $.ajax(obj)
 
-            .done(function (resp) 
-            {
-
-              if(resp=="Customer")
-              {
-                localStorage.setItem("activeUser",email);
-               location.href="customer-Dash.html";
-              }
-              else if(resp=="Provider")
-              {
-                localStorage.setItem("activeUser",email);
-                location.href="service-provider-dash.html";
-                
-              }
-              else
-              alert(resp);
+            .done(function (resp) {
+              if (resp == "Customer") {
+                localStorage.setItem("activeUser", email);
+                location.href = "customer-Dash.html";
+              } else if (resp == "Provider") {
+                localStorage.setItem("activeUser", email);
+                location.href = "service-provider-dash.html";
+              } else alert(resp);
             })
 
             .fail(function (err) {
@@ -187,46 +253,34 @@
   </head>
   <body>
     <!-- -------------------------Nav BAR--------------------------------- -->
-    <nav class="navbar" style="background-color: #fbedd7">
-      <div class="container-fluid justify-content-end">
-        
+    <nav class="navbar" style="background-color: #eff2f7">
+      <div class="container-fluid justify-content-end mt-2 mb-2">
+        <div class="col-md-6" style="margin-right: 27%">
+          <h5>Samadhaan.com</h5>
+        </div>
 
         <!-- ----------------------------sign-up button------------------------- -->
 
         <button
-          class="btn me-2"
+          class="btn me-2 btn-outline-dark"
           data-bs-toggle="modal"
           data-bs-target="#signupmodal"
           type="button"
-          style="background-color: #213c53; color: #fbedd7"
         >
-          Sign up
+          <small>Sign up</small>
         </button>
 
         <!-- ----------------------------login button------------------------- -->
         <button
-          class="btn me-2"
+          class="btn me-5 btn-outline-dark"
           data-bs-toggle="modal"
           data-bs-target="#loginmodal"
           type="button"
-          style="background-color: #213c53; color: #fbedd7"
         >
-          Login
+          <small> Login</small>
         </button>
       </div>
     </nav>
-
-    <!-- ----------------------BACKGROUND-IMAGE--------------------------- -->
-
-    <div
-      class="background"
-      style="
-        background-image: url(../pic/_cdae923f-657c-4623-98ee-f4d02a28ae2b.jpg);
-        height: 92.8vh;
-        background-size: contain;
-        background-repeat: inherit;
-      "
-    ></div>
 
     <!-----------------------------signup Modal ----------------------->
     <div
@@ -239,7 +293,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #fbedd7">
+        <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="staticBackdropLabel">Sign up</h1>
             <button
@@ -286,12 +340,6 @@
                     required
                   />
                 </div>
-
-                <!-- <div class="col">
-                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                  <i class="fas fa-eye-slash"></i>
-              </button>
-              </div> -->
               </div>
               <!-- -------------------------USER TYPE---------------------------------- -->
 
@@ -306,24 +354,17 @@
                     required
                   >
                     <option selected disabled value="">Choose...</option>
-                    <option value="Customer">Customer-Dash</option>
-                    <option value="Provider">
-                      Service-Provider-Dash
-                    </option>
+                    <option value="Customer">Customer</option>
+                    <option value="Provider">Provider</option>
                   </select>
                 </div>
               </div>
 
               <!-- --------------------------SIGN UP BUTTON--------------------------------- -->
 
-              <div class="d-grid gap-2 col-6 mx-auto">
-                <button
-                  class="btn btn-primary"
-                  type="button"
-                  id="upbtn"
-                  style="background-color: #213c53; color: #fbedd7"
-                >
-                  Sign up
+              <div class="d-grid mt-2 gap-2 col-6 mx-auto">
+                <button class="btn btn-outline-dark" type="button" id="upbtn">
+                  <small>Sign up</small>
                 </button>
                 <span id="signerr"></span>
               </div>
@@ -348,7 +389,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #fbedd7">
+        <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="staticBackdropLabel">Login</h1>
             <button
@@ -393,14 +434,8 @@
             <!-- --------------------------login BUTTON--------------------------------- -->
 
             <div class="d-grid gap-2 col-6 mx-auto">
-              <button
-                class="btn"
-                
-                type="button"
-                id="loginbtn"
-                style="background-color: #213c53; color: #fbedd7"
-              >
-                Login
+              <button class="btn btn-outline-dark" type="button" id="loginbtn">
+                <small>Login</small>
               </button>
             </div>
 
@@ -410,5 +445,169 @@
       </div>
     </div>
     <!-- -------------------------------------------------------------------- -->
+
+    <div
+      class="container d-flex flex-wrap justify-content-center mb-5 align-items-center"
+      style="height: 350px; width: 800px; margin-top: 100px"
+    >
+      <div class="col-md-6" style="height: 350px">
+        <div class="row align-items-center" style="height: 100%">
+          <div class="mb-4">
+            <h2>Welcome to Samadhaan.com!</h2>
+            <small class="text-wrap text-center" style="font-weight: 300">
+              Affordable projects, skilled help! Find local labors, contractors,
+              and engineers with ease. Your community's go-to for hassle-free
+              projects. Quality, convenience, and reliability - that's
+              Samadhaan.com! 😁🔧✨
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ------------------------------------------------------------------------------- -->
+
+      <div class="col-md-6" style="height: inherit">
+        <img
+          src="/pic/Gemini_Generated_Image (1).jpg"
+          style="width: 90%; height: 90%; border-radius: 10px"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <!-- -------------------------------------------------------------------- -->
+
+    <div
+      class="container mt-5 mb-5 d-flex flex-wrap justify-content-center gap-3"
+    >
+      <div class="col-md-12">
+        <center><h2>Services We are Provided...</h2></center>
+      </div>
+
+      <div class="col-md-3">
+        <div class="mb-1">
+          <center>
+            <img
+              src="/pic/New folder/car.png"
+              style="width: 200px; height: 200px; border-radius: 50%"
+              alt=""
+            />
+          </center>
+        </div>
+        <span
+          ><p><center>Car Services</center></p></span
+        >
+      </div>
+      <div class="col-md-3">
+        <div class="mb-1">
+          <center>
+            <img
+              src="/pic/New folder/electrical.png"
+              style="width: 200px; height: 200px; border-radius: 50%"
+              alt=""
+            />
+          </center>
+        </div>
+        <span
+          ><p><center>Electrical Services</center></p></span
+        >
+      </div>
+      <div class="col-md-3">
+        <div class="mb-1">
+          <center>
+            <img
+              src="/pic/New folder/gardening.png"
+              style="width: 200px; height: 200px; border-radius: 50%"
+              alt=""
+            />
+          </center>
+        </div>
+        <span
+          ><p><center>Gardening Services</center></p></span
+        >
+      </div>
+      <div class="col-md-3">
+        <div class="mb-1">
+          <center>
+            <img
+              src="/pic/New folder/maid.jpg"
+              style="width: 200px; height: 200px; border-radius: 50%"
+              alt=""
+            />
+          </center>
+        </div>
+        <span
+          ><p><center>Maids</center></p></span
+        >
+      </div>
+      <div class="col-md-3">
+        <div class="mb-1">
+          <center>
+            <img
+              src="/pic/New folder/painter.png"
+              style="width: 200px; height: 200px; border-radius: 50%"
+              alt=""
+            />
+          </center>
+        </div>
+        <span
+          ><p><center>Painting Services</center></p></span
+        >
+      </div>
+      <div class="col-md-3">
+        <div class="mb-1">
+          <center>
+            <img
+              src="/pic/New folder/roofing.png"
+              style="width: 200px; height: 200px; border-radius: 50%"
+              alt=""
+            />
+          </center>
+        </div>
+        <span
+          ><p><center>Roofing Services</center></p></span
+        >
+      </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------ -->
+    <div class="footer-clean">
+      <footer>
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-sm-4 col-md-3 item">
+                      <h3>Services</h3>
+                      <ul>
+                          <li><a href="#">Web design</a></li>
+                          <li><a href="#">Development</a></li>
+                          <li><a href="#">Hosting</a></li>
+                      </ul>
+                  </div>
+                  <div class="col-sm-4 col-md-3 item">
+                      <h3>About</h3>
+                      <ul>
+                          <li><a href="#">Company</a></li>
+                          <li><a href="#">Team</a></li>
+                          <li><a href="#">Legacy</a></li>
+                      </ul>
+                  </div>
+                  <div class="col-sm-4 col-md-3 item">
+                      <h3>Careers</h3>
+                      <ul>
+                          <li><a href="#">Job openings</a></li>
+                          <li><a href="#">Employee success</a></li>
+                          <li><a href="#">Benefits</a></li>
+                      </ul>
+                  </div>
+                  <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
+                      <p class="copyright">Company Name © 2018</p>
+                  </div>
+              </div>
+          </div>
+      </footer>
+  </div>
+
+
+    
   </body>
 </html>
