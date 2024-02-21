@@ -624,7 +624,7 @@ app.get("/getuniquecity", function(req,resp){
       return;
     } else {
       resp.send(result);
-      console.log(result);
+      
     }
 
 
