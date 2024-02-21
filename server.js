@@ -391,7 +391,7 @@ app.post("/serv-save", function (req, resp) {
     req.body.ppic = filename;
 
     mysql.query(
-      "insert into serProvider values (?,?,?,?,?,?,?,?,?,?,?,?)",
+      "insert into serProvider values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
       [
         req.body.email,
         req.body.name,
@@ -405,6 +405,9 @@ app.post("/serv-save", function (req, resp) {
         req.body.id,
         filename,
         req.body.txtar,
+        req.body.city,
+        req.body.state
+        
       ],
       function (err) {
         if (err == null) {
@@ -446,7 +449,7 @@ app.post("/usp", function (req, resp) {
   req.body.ppic = filename;
 
   mysql.query(
-    "update serProvider set FName=? , contact=? , gender=? , Firmaddress=? , Since = ? , serviceCat=? , firm=?, website=? , idproof=? , ppic=? , textt=? where emailid=?",
+    "update serProvider set FName=? , contact=? , gender=? , Firmaddress=? , Since = ? , serviceCat=? , firm=?, website=? , idproof=? , ppic=? , textt=? , city=? , state=? where emailid=?",
     [
       req.body.name,
       req.body.contact,
@@ -459,7 +462,10 @@ app.post("/usp", function (req, resp) {
       req.body.id,
       filename,
       req.body.txtar,
-      req.body.email,
+      req.body.city,
+      req.body.state,
+      req.body.email
+      
     ],
     function (err) {
       if (err == null) {
