@@ -89,30 +89,28 @@
       }
     </script>
   </head>
-  <body style="background-color: #e2e8f0">
-    <nav class="navbar fixed-top" style="background-color: #3c4856; ">
-      <div class="container-fluid justify-content-end">
-          <div style="margin-right: 15%; width: 65%">
-             
-            </div>
-          
-          <a
-          class="btn btn-primary me-2  btn-sm"
-          href="/cd"
-         
-          >Home</a
+  <body >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+      <div class="container-fluid" >
+        <h5 class="navbar-brand " style="margin-left: 50px;">Samadhaan.com</h5>
+    
+       
+    
+      
       </div>
-  </nav>
+    </nav>
 
     <form action="/saveee" method="post" enctype="multipart/form-data" >
       <input type="hidden" id="hdn" name="hdn" >
     <div
       class="container d-flex justify-content-center"
       style="
-        margin-top: 5%;
+        margin-top: 3%;
         width: 40%;
         background-color: white;
         border-radius: 10px;
+       
+        border-style: groove;
       "
     >
       <div class="row mt-2 mb-3 g-3 needs-validation" novalidate>
@@ -156,7 +154,7 @@
         <div class="col-md-5">
           <label for="contact" class="form-label">Contact Number</label>
           <div class="input-group has-validation">
-            <input type="text" name="contact" class="form-control" id="contact" required />
+            <input type="text" name="contact" maxlength="10" class="form-control" id="contact" required />
           </div>
         </div>
 

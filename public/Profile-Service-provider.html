@@ -58,16 +58,7 @@
             });
         });
 
-        $("#EmailAdd").keyup(function () {
-          let email = $("#EmailAdd").val();
-          var r = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
-          if (r.test(email) == false) {
-            $("#errE").html("Invalid").addClass("not-ok").removeClass("ok");
-          } else {
-            $("#errE").html("Valid").addClass("ok").removeClass("not-ok");
-          }
-        });
 
         $("#since").keyup(function () {
           let inputValue = $("#since").val();
@@ -161,29 +152,29 @@
        }
      </script>
   </head>
-  <body style="background-color: #e2e8f0" onload="fetchUser()">
-    <nav class="navbar  " style="background-color: #3c4856; ">
-      <div class="container-fluid justify-content-end">
-         
-          
-          <a
-          class="btn btn-primary me-2  btn-sm"
-          href="/spd"
-         
-          >Home</a
+  <body  onload="fetchUser()">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <h5 class="navbar-brand" style="margin-left: 50px">Samadhaan.com</h5>
+
+        <span
+          id="auser"
+          style="text-size-adjust: 100%; font-size: large"
+        ></span>
       </div>
-  </nav>
+    </nav>
 
     <form action="/serv-save" method="post" enctype="multipart/form-data">
       
       <input type="hidden" id="hdn" name="hdn" />
       <div
-        class="container mt-3 d-flex justify-content-center"
+        class="container mt-2 mb-5 d-flex justify-content-center"
         style="
           
           width: 65%;
           background-color: white;
           border-radius: 10px;
+          border-style: groove;
         "
       >
         <div class="row mt-2 mb-3 g-3 needs-validation" novalidate>
@@ -198,15 +189,14 @@
           <div class="row align-items-end">
             <div class="col-md-6">
               <label for="EmailAdd" class="form-label bg-light"
-                >Email Id <span id="errE"></span
-              ></label>
+                >Email Id </label>
               <input
                 type="text"
                 class="form-control"
                 id="EmailAdd"
                 name="email"
-                placeholder="Enter your Email address"
-                value="abcde@gmail.com"
+                
+                
                 required
                 readonly
               />
@@ -396,7 +386,7 @@
           </div>
 
           <div class="col-md-4">
-            <img id="img-preview" src=""  />
+            <img id="img-preview" src="" style=" width: 100%;  " />
           </div>
 
           <!-- ----------------------------------------text area----------------------------------------------- -->
@@ -432,7 +422,7 @@
           </div>
           <!-- -------------------------------------------------------------------------------- -->
           <div class="col-12 text-center">
-            <button class="btn btn-primary" id="savebtn" disabled type="submit">
+            <button class="btn btn-primary" id="savebtn"  type="submit">
               upload Data
             </button>
             <button
