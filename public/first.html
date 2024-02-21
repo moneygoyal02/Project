@@ -247,39 +247,33 @@
     <!-- ------------------------------------------------------------------ -->
   </head>
   <body>
+
+    
     <!-- -------------------------Nav BAR--------------------------------- -->
-    <nav class="navbar" style="background-color: #eff2f7">
-      <div class="container-fluid justify-content-end mt-2 mb-2">
-        <div class="col-md-6" style="margin-right: 27%">
-          <h5>Samadhaan.com</h5>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+      <div class="container-fluid" >
+        <h5 class="navbar-brand " style="margin-left: 50px;">Samadhaan.com</h5>
+    
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <button class="btn me-2 mt-1 btn-outline-dark" data-bs-toggle="modal" data-bs-target="#signupmodal" type="button"><small>Sign up</small></button>
+            </li>
+            <li class="nav-item">
+              <button class="btn me-5 mt-1 btn-outline-dark" data-bs-toggle="modal" data-bs-target="#loginmodal" type="button"><small>Login</small></button>
+            </li>
+          </ul>
         </div>
-
-        <!-- ----------------------------sign-up button------------------------- -->
-
-        <button
-          class="btn me-2 btn-outline-dark"
-          data-bs-toggle="modal"
-          data-bs-target="#signupmodal"
-          type="button"
-        >
-          <small>Sign up</small>
-        </button>
-
-        <!-- ----------------------------login button------------------------- -->
-        <button
-          class="btn me-5 btn-outline-dark"
-          data-bs-toggle="modal"
-          data-bs-target="#loginmodal"
-          type="button"
-        >
-          <small> Login</small>
-        </button>
       </div>
     </nav>
 
     <!-----------------------------signup Modal ----------------------->
     <div
-      class="modal fade"
+      class="modal  fade"
       id="signupmodal"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
@@ -287,7 +281,7 @@
       aria-labelledby="staticBackdropLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog ">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="staticBackdropLabel">Sign up</h1>
@@ -442,13 +436,13 @@
     <!-- -------------------------------------------------------------------- -->
 
     <div
-      class="container d-flex flex-wrap justify-content-center mb-5 align-items-center"
+      class="container d-flex  justify-content-center mb-5 align-items-center"
       style="height: 350px; width: 800px; margin-top: 100px"
     >
       <div class="col-md-6" style="height: 350px">
         <div class="row align-items-center" style="height: 100%">
           <div class="mb-4">
-            <h2>Welcome to Samadhaan.com!</h2>
+            <h2 >Welcome to Samadhaan.com!</h2>
             <small class="text-wrap text-center" style="font-weight: 300">
               Affordable projects, skilled help! Find local labors, contractors,
               and engineers with ease. Your community's go-to for hassle-free
@@ -466,6 +460,7 @@
           src="/pic/Gemini_Generated_Image (1).jpg"
           style="width: 90%; height: 90%; border-radius: 10px"
           alt=""
+          class="img-fluid"
         />
       </div>
     </div>
@@ -798,5 +793,6 @@
         </div>
       </footer>
     </div>
+ 
   </body>
 </html>
