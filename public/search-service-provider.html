@@ -53,6 +53,20 @@
               alert(response.data);
             }
           };
+
+
+//           $scope.uniquecity = function () {
+//   if ($scope.selectedCity) {
+//     $scope.jsonRecordsAry = $scope.jsonRecordsAry.filter(function (obj) {
+//       return obj.city === $scope.selectedCity;
+//     });
+//   } else {
+//     // If no city is selected, fetch all records
+//     $scope.doFetchAll();
+//   }
+// };
+
+
         }
       );
     </script>
@@ -80,7 +94,7 @@
             aria-placeholder="📍"
           >
             <option selected disabled value="">📍Choose...</option>
-            <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
+            <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">  //use ng click
               {{obj.city}}
             </option>
           </select>

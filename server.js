@@ -184,7 +184,7 @@ app.get("/cp", function (req, resp) {
 app.post("/saveee", function (req, resp) {
   // data : {name : name ,contact : cont , address : addre , state :state , city : city , ppic : pic},
   // (emailid varchar(30) primary key , FName varchar(30) ,  contact varchar(15) , address varchar(100) ,  city varchar(30) , state varchar(50) , ppic varchar(300) );
-  
+
   if (req.body.checkbox === "checked") {
     const namee = req.body.name;
     const contact = req.body.contact;
@@ -202,7 +202,6 @@ app.post("/saveee", function (req, resp) {
       filename = req.files.ppic.name;
       let path = process.cwd() + "/public/uploads/" + filename;
       req.files.ppic.mv(path);
-      
     }
 
     req.body.ppic = filename;
@@ -406,8 +405,7 @@ app.post("/serv-save", function (req, resp) {
         filename,
         req.body.txtar,
         req.body.city,
-        req.body.state
-        
+        req.body.state,
       ],
       function (err) {
         if (err == null) {
@@ -464,8 +462,7 @@ app.post("/usp", function (req, resp) {
       req.body.txtar,
       req.body.city,
       req.body.state,
-      req.body.email
-      
+      req.body.email,
     ],
     function (err) {
       if (err == null) {
@@ -595,67 +592,69 @@ app.get("/resume", function (req, resp) {
 });
 
 app.get("/angular-fetch-allproviders", function (req, resp) {
-  const user="Service-Provider-Dash";
-  console.log
-  mysql.query("select * from users where usertype=?",[user], function (err, result) {
-    if (err) {
-      resp.send(err.message);
-      return;
-    } else resp.send(result);
-  });
+  const user = "Service-Provider-Dash";
+  console.log;
+  mysql.query(
+    "select * from users where usertype=?",
+    [user],
+    function (err, result) {
+      if (err) {
+        resp.send(err.message);
+        return;
+      } else resp.send(result);
+    }
+  );
 });
 
 app.get("/angular-fetch-allcustomer", function (req, resp) {
-  const user="Customer-Dash";
-  console.log
-  mysql.query("select * from users where usertype=?",[user], function (err, result) {
-    if (err) {
-      resp.send(err.message);
-      return;
-    } else resp.send(result);
-  });
+  const user = "Customer-Dash";
+  console.log;
+  mysql.query(
+    "select * from users where usertype=?",
+    [user],
+    function (err, result) {
+      if (err) {
+        resp.send(err.message);
+        return;
+      } else resp.send(result);
+    }
+  );
 });
 
-app.get("/getuniquecity", function(req,resp){
-
-  mysql.query("select city from serProvider group by city", function(err,result){
-    if (err) {
-      resp.send(err.message);
-      return;
-    } else {
-      resp.send(result);
-      
+app.get("/getuniquecity", function (req, resp) {
+  mysql.query(
+    "select city from serProvider group by city",
+    function (err, result) {
+      if (err) {
+        resp.send(err.message);
+        return;
+      } else {
+        resp.send(result);
+      }
     }
-
-
-  });
-
+  );
 });
 
 // -------------------search-service-provider-------------------------------
 
-app.get("/ssp",function(req,resp){
-
-  let filepath=process.cwd()+"/public/search-service-provider.html";
+app.get("/ssp", function (req, resp) {
+  let filepath = process.cwd() + "/public/search-service-provider.html";
   resp.sendFile(filepath);
 });
 
-app.get("/angular-fetch-allserviproviders",function(req,resp){
-  
+app.get("/angular-fetch-allserviproviders", function (req, resp) {
   mysql.query("select * from serProvider", function (err, result) {
     if (err) {
       resp.send(err.message);
       return;
     } else resp.send(result);
   });
-
-})
+});
 
 // ----------------------------service provide dash---------------------------------------
 
-app.get("/spd",function(req,resp){
-
-  let filepath=process.cwd()+"/public/service-provider-dash.html";
+app.get("/spd", function (req, resp) {
+  let filepath = process.cwd() + "/public/service-provider-dash.html";
   resp.sendFile(filepath);
 });
 
@@ -675,24 +674,18 @@ app.get("/changepassserv", function (req, resp) {
   );
 });
 
-
 // ------------------------find-job------------------------------------
 
-app.get("/fj",function(req,resp){
-
-  let filepath=process.cwd()+"/public/find-job.html";
+app.get("/fj", function (req, resp) {
+  let filepath = process.cwd() + "/public/find-job.html";
   resp.sendFile(filepath);
 });
 
-app.get("/angular-fetch-alljobs",function(req,resp){
-  
+app.get("/angular-fetch-alljobs", function (req, resp) {
   mysql.query("select * from posttask", function (err, result) {
     if (err) {
       resp.send(err.message);
       return;
     } else resp.send(result);
   });
-
-})
-
-
+});
