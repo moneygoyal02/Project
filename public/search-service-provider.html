@@ -23,58 +23,100 @@
       crossorigin="anonymous"
     />
     <script>
-         var module = angular.module("myModule", []);
-    var controller = module.controller(
-      "myController",
-      function ($scope, $http) {
-        $scope.jsonRecordsAry = [];
-        //   ----------Fetch-all-------------------------------
-        $scope.doFetchAll = function () {
-          let url = "/angular-fetch-allserviproviders";
-          $http.get(url).then(success, errors);
-          function success(response) {
-            $scope.jsonRecordsAry = response.data;
-          }
-          function errors(response) {
-            alert(response.data);
-          }
-        };
+      var module = angular.module("myModule", []);
+      var controller = module.controller(
+        "myController",
+        function ($scope, $http) {
+          $scope.jsonRecordsAry = [];
+          //   ----------Fetch-all-------------------------------
+          $scope.doFetchAll = function () {
+            let url = "/angular-fetch-allserviproviders";
+            $http.get(url).then(success, errors);
+            function success(response) {
+              $scope.jsonRecordsAry = response.data;
+            }
+            function errors(response) {
+              alert(response.data);
+            }
+          };
+
+          $scope.uniquecity = function () {
+            let url = "/getuniquecity";
+            $http.get(url).then(success, errors);
+
+            
+
+            function success(response) {
+        $scope.UniqueCities = response.data;
       }
-    );
+            function errors(response) {
+              alert(response.data);
+            }
+          };
+        }
+      );
     </script>
   </head>
-  <body ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();" >
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-      <div class="container-fluid" >
-        <h5 class="navbar-brand " style="margin-left: 50px;">Samadhaan.com</h5>
-    
-       
-    
-      
+  <body ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <h5 class="navbar-brand" style="margin-left: 50px">Samadhaan.com</h5>
       </div>
     </nav>
 
-    <div class="container  mt-5">
-        
-      
-        <div class="row ">
-          <div class="col-md-3 mt-3" ng-repeat="obj in jsonRecordsAry">
-            <div class="card mb-3" style="width: 300px; height: 400px; align-items: center;  border-style: none;">
-                <img ng-src="/uploads/{{obj.ppic}}" class="card-img-top rounded" style="height: 222px; width: 192px; " >
-              <div class="card-body">
-                <h5 class="card-title">{{obj.emailid}}</h5>
-                <p class="card-text">Name: {{obj.FName}}</p>
-                <p class="card-text">Gender: {{obj.gender}}</p>
-                <p class="card-text">Service: {{obj.serviceCat}}</p>
-                <p class="card-text">Since: {{obj.Since}}</p>
-                <p class="card-text">State: {{obj.state}}</p>
-                <p class="card-text">City: {{obj.city}}</p>
-              </div>
+    
+
+    <div
+      class="container mt-2"
+      style="width: 308px; height: 48px; margin-left: 70%"
+    >
+      <div class="row">
+        <div class="col">
+          <select
+            class="form-select bg-light"
+            ng-model="selectedCity"
+            ng-change="uniquecity()"
+            aria-label="Default select example"
+            aria-placeholder="📍"
+          >
+            <option selected disabled value="">📍Choose...</option>
+            <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
+              {{obj.city}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col-md-3 mt-3" ng-repeat="obj in jsonRecordsAry">
+          <div
+            class="card mb-3"
+            style="
+              width: 300px;
+              height: 400px;
+              align-items: center;
+              border-style: none;
+            "
+          >
+            <img
+              ng-src="/uploads/{{obj.ppic}}"
+              class="card-img-top rounded"
+              style="height: 222px; width: 192px"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{obj.emailid}}</h5>
+              <p class="card-text">Name: {{obj.FName}}</p>
+              <p class="card-text">Gender: {{obj.gender}}</p>
+              <p class="card-text">Service: {{obj.serviceCat}}</p>
+              <p class="card-text">Since: {{obj.Since}}</p>
+              <p class="card-text">State: {{obj.state}}</p>
+              <p class="card-text">City: {{obj.city}}</p>
             </div>
           </div>
         </div>
       </div>
-    
+    </div>
   </body>
 </html>

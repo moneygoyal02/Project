@@ -616,6 +616,22 @@ app.get("/angular-fetch-allcustomer", function (req, resp) {
   });
 });
 
+app.get("/getuniquecity", function(req,resp){
+
+  mysql.query("select city from serProvider group by city", function(err,result){
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+
+
+  });
+
+});
+
 // -------------------search-service-provider-------------------------------
 
 app.get("/ssp",function(req,resp){
@@ -678,4 +694,5 @@ app.get("/angular-fetch-alljobs",function(req,resp){
   });
 
 })
+
 
