@@ -8,6 +8,7 @@
       function fetchUser() {
         let activeUser = localStorage.getItem("activeUser");
         document.querySelector("#auser").innerHTML = activeUser;
+        document.querySelector("#EMail").value = activeUser;
       }
     </script>
     <script
@@ -256,6 +257,7 @@
                         class="form-control form-control-lg bg-light fs-6"
                         placeholder="Email address"
                         id="EMail"
+                        readonly
                         required
                       />
                     </div>
