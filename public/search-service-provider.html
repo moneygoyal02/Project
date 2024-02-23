@@ -22,7 +22,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <script>
+    <!-- <script>
       var module = angular.module("myModule", []);
       var controller = module.controller(
         "myController",
@@ -55,21 +55,71 @@
           };
 
 
-//           $scope.uniquecity = function () {
-//   if ($scope.selectedCity) {
-//     $scope.jsonRecordsAry = $scope.jsonRecordsAry.filter(function (obj) {
-//       return obj.city === $scope.selectedCity;
-//     });
-//   } else {
-//     // If no city is selected, fetch all records
-//     $scope.doFetchAll();
-//   }
-// };
+
 
 
         }
       );
-    </script>
+    </script> -->
+    <!-- Inside your AngularJS controller -->
+<script>
+  var module = angular.module("myModule", []);
+  var controller = module.controller(
+    "myController",
+    function ($scope, $http) {
+      $scope.jsonRecordsAry = [];
+      $scope.UniqueCities = [];
+
+      
+      $scope.doFetchAll = function () {
+        let url = "/angular-fetch-allserviproviders";
+        $http.get(url).then(success, errors);
+        function success(response) {
+          $scope.jsonRecordsAry = response.data;
+        }
+        function errors(response) {
+          alert(response.data);
+        }
+      };
+
+      
+      $scope.uniquecity = function () {
+        let url = "/getuniquecity";
+        $http.get(url).then(success, errors);
+
+        function success(response) {
+          $scope.UniqueCities = response.data;
+          
+          if ($scope.selectedCity) {
+            $scope.fetchRecordsByCity($scope.selectedCity);
+          } else {
+            
+            $scope.doFetchAll();
+          }
+        }
+
+        function errors(response) {
+          alert(response.data);
+        }
+      };
+
+
+      $scope.fetchRecordsByCity = function (selectedCity) {
+        let url = "/fetchRecordsByCity?city=" + selectedCity; 
+        $http.get(url).then(success, errors);
+
+        function success(response) {
+          $scope.jsonRecordsAry = response.data;
+        }
+
+        function errors(response) {
+          alert(response.data);
+        }
+      };
+    }
+  );
+</script>
+
   </head>
   <body ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

@@ -621,19 +621,7 @@ app.get("/angular-fetch-allcustomer", function (req, resp) {
   );
 });
 
-app.get("/getuniquecity", function (req, resp) {
-  mysql.query(
-    "select city from serProvider group by city",
-    function (err, result) {
-      if (err) {
-        resp.send(err.message);
-        return;
-      } else {
-        resp.send(result);
-      }
-    }
-  );
-});
+
 
 // -------------------search-service-provider-------------------------------
 
@@ -649,6 +637,33 @@ app.get("/angular-fetch-allserviproviders", function (req, resp) {
       return;
     } else resp.send(result);
   });
+});
+
+app.get("/fetchRecordsByCity",function(req,resp){
+
+  const selectedCity = req.query.city;
+
+  mysql.query("select * from serProvider where city=?",[selectedCity], function(err,result){
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else resp.send(result);
+  });
+
+});
+
+app.get("/getuniquecity", function (req, resp) {
+  mysql.query(
+    "select city from serProvider group by city",
+    function (err, result) {
+      if (err) {
+        resp.send(err.message);
+        return;
+      } else {
+        resp.send(result);
+      }
+    }
+  );
 });
 
 // ----------------------------service provide dash---------------------------------------
