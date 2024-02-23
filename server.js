@@ -592,8 +592,8 @@ app.get("/resume", function (req, resp) {
 });
 
 app.get("/angular-fetch-allproviders", function (req, resp) {
-  const user = "Service-Provider-Dash";
-  console.log;
+  const user = "Provider";
+  console.log(user);
   mysql.query(
     "select * from users where usertype=?",
     [user],
@@ -607,7 +607,7 @@ app.get("/angular-fetch-allproviders", function (req, resp) {
 });
 
 app.get("/angular-fetch-allcustomer", function (req, resp) {
-  const user = "Customer-Dash";
+  const user = "Customer";
   console.log;
   mysql.query(
     "select * from users where usertype=?",
