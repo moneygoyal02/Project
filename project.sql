@@ -12,13 +12,15 @@ create table cuprofile (emailid varchar(30) primary key , FName varchar(30) ,  c
 
 select * from cuprofile; 
 
+
 create table posttask (rid int primary key auto_increment , emailid varchar(50) , serviceCat varchar(100) , subServiceCat varchar(100) , address varchar(100) , city varchar(50) , state varchar(50) , UptoDate date , task varchar(300) );
 
 select * from posttask;
 
 
-create table serProvider(emailid varchar(30) primary key, FName varchar(30) ,  contact varchar(15) , gender varchar(15),  Firmaddress varchar(100) , Since varchar(5) , serviceCat varchar(100) , firm varchar(200) , website varchar(200) , idproof varchar(15) , ppic varchar(300) , textt varchar(400));
+create table serProvider(emailid varchar(30) primary key, FName varchar(30) ,  contact varchar(15) , gender varchar(15),  Firmaddress varchar(100) , Since varchar(5) , serviceCat varchar(100) , firm varchar(200) , website varchar(200) , idproof varchar(15) , ppic varchar(300) , textt varchar(400) , city varchar(100), state varchar(100));
 select * from serProvider ; 
+drop table serProvider;
 
 
 
