@@ -390,14 +390,26 @@
     </script>
 
     <!-- --------------------------------------------------------------------------------- -->
+
+    <script>
+      function fetchUser() {
+        let activeUser = localStorage.getItem("activeUser");
+        document.querySelector("#auser").innerHTML = activeUser;
+        document.querySelector("#txttEmail").value = activeUser;
+
+      }
+    </script>
   </head>
-  <body >
+  <body onload="fetchUser();">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" >
       <div class="container-fluid" >
         <h5 class="navbar-brand " style="margin-left: 50px;">Samadhaan.com</h5>
     
        
-    
+        <span
+        id="auser"
+        style="text-size-adjust: 100%; font-size: large"
+      ></span>
       
       </div>
     </nav>
@@ -488,6 +500,7 @@
                         name="txttEmail"
                         id="txttEmail"
                         required
+                        readonly
                       />
                     </div>
                   </div>
