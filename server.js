@@ -622,6 +622,18 @@ app.get("/angular-fetch-allcustomer", function (req, resp) {
 });
 
 
+app.get("/angular-fetch-allprovidersprofile",function(req,resp){
+   console.log(req.body.email);
+   mysql.query("select * from serProvider where emailid=?",[req.body.email], function (err, result) {
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else resp.send(result);
+  });
+   
+});
+
+
 
 // -------------------search-service-provider-------------------------------
 
