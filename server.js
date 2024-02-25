@@ -676,6 +676,20 @@ app.get("/getuniquecity", function (req, resp) {
   );
 });
 
+app.get("//getseruniq", function (req, resp) {
+  mysql.query(
+    "select city from serProvider group by serviceCat",
+    function (err, result) {
+      if (err) {
+        resp.send(err.message);
+        return;
+      } else {
+        resp.send(result);
+      }
+    }
+  );
+});
+
 // ----------------------------service provide dash---------------------------------------
 
 app.get("/spd", function (req, resp) {
