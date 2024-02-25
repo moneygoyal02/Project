@@ -714,3 +714,10 @@ app.get("/angular-fetch-alljobs", function (req, resp) {
     } else resp.send(result);
   });
 });
+
+// ------------jobs manager---------------------------------------------
+
+app.get("/jm",function(req,resp){
+  let filepath=process.cwd()+"/public/jobs-manager.html";
+  resp.sendFile(filepath);
+})
