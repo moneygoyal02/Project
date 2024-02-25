@@ -662,6 +662,19 @@ app.get("/fetchRecordsByCity",function(req,resp){
 
 });
 
+app.get("/fetchRecordsBysercat",function(req,resp){
+
+  
+
+  mysql.query("select * from serProvider where serviceCat=?",[req.query.sercat], function(err,result){
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else resp.send(result);
+  });
+
+});
+
 app.get("/getuniquecity", function (req, resp) {
   mysql.query(
     "select city from serProvider group by city",
@@ -676,15 +689,16 @@ app.get("/getuniquecity", function (req, resp) {
   );
 });
 
-app.get("//getseruniq", function (req, resp) {
+app.get("/getuniquesercat", function (req, resp) {
   mysql.query(
-    "select city from serProvider group by serviceCat",
+    "select serviceCat from serProvider group by serviceCat",
     function (err, result) {
       if (err) {
         resp.send(err.message);
         return;
       } else {
         resp.send(result);
+        console.log(result);
       }
     }
   );

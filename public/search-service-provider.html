@@ -97,6 +97,7 @@
         function ($scope, $http) {
           $scope.jsonRecordsAry = [];
           $scope.UniqueCities = [];
+          $scope.UniqueSercat = [];
 
           $scope.doFetchAll = function () {
             let url = "/angular-fetch-allserviproviders";
@@ -108,7 +109,7 @@
               alert(response.data);
             }
           };
-
+          // --------------uniquecity--------------------------
           $scope.uniquecity = function () {
             let url = "/getuniquecity";
             $http.get(url).then(success, errors);
@@ -141,6 +142,40 @@
             }
           };
 
+          //-----------------------------------------------------------------
+          $scope.uniquesercat = function () {
+            let url = "/getuniquesercat";
+            $http.get(url).then(success, errors);
+
+            function success(response) {
+              $scope.UniqueSercat = response.data;
+              // console.log($scope.UniqueSercat);
+
+              if ($scope.selectedsercat) {
+                $scope.fetchRecordsBysercat($scope.selectedsercat);
+              } else {
+                $scope.doFetchAll();
+              }
+            }
+
+            function errors(response) {
+              alert(response.data);
+            }
+          };
+
+          $scope.fetchRecordsBysercat = function (selectedsercat) {
+            let url = "/fetchRecordsBysercat?sercat=" + selectedsercat;
+            $http.get(url).then(success, errors);
+
+            function success(response) {
+              $scope.jsonRecordsAry = response.data;
+            }
+
+            function errors(response) {
+              alert(response.data);
+            }
+          };
+          //-----------------------------------------------------------------
           $scope.showModal = function (selectedRecord) {
             $scope.selectedRecord = selectedRecord;
             $("#show").modal("show");
@@ -160,25 +195,37 @@
       </div>
     </nav>
 
-    <div
-      class="container mt-2"
-      style="width: 308px; height: 48px; margin-left: 70%"
-    >
-      <div class="row">
-        <div class="col">
-          <select
-            class="form-select bg-light"
-            ng-model="selectedCity"
-            ng-change="uniquecity()"
-            aria-label="Default select example"
-            aria-placeholder="📍"
-          >
-            <option selected disabled value="">📍Choose...</option>
-            <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
-              {{obj.city}}
-            </option>
-          </select>
-        </div>
+    <div class="container mt-2 d-flex justify-content-end">
+      <div class="col-md-3" style="margin-right: 20px">
+        <select
+          class="form-select bg-light"
+          ng-model="selectedCity"
+          ng-change="uniquecity()"
+          aria-label="Default select example"
+          aria-placeholder="📍"
+        >
+          <option selected disabled value="">📍Choose city...</option>
+          <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
+            {{obj.city}}
+          </option>
+        </select>
+      </div>
+      <!-- --------------------------------------------------- -->
+      <div class="col-md-3">
+        <select
+          class="form-select bg-light"
+          ng-model="selectedsercat"
+          ng-change="uniquesercat()"
+          aria-label="Default select example"
+          aria-placeholder="📍"
+        >
+          <option selected disabled value="">
+            📍Choose service category ...
+          </option>
+          <option ng-repeat="ary in UniqueSercat" value="{{ary.serviceCat}}">
+            {{ary.serviceCat}}
+          </option>
+        </select>
       </div>
     </div>
 
