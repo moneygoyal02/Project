@@ -721,3 +721,29 @@ app.get("/jm",function(req,resp){
   let filepath=process.cwd()+"/public/jobs-manager.html";
   resp.sendFile(filepath);
 })
+
+app.get("/angular-fetch-allposttasks",function(req,resp){
+
+  // console.log(req.query.email);
+  mysql.query("select * from posttask where emailid=?",[req.query.email], function (err, result) {
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else{ 
+      console.log(result);
+      resp.send(result);}
+  });
+
+})
+
+app.get("/dodelete",function(req,resp){
+  // console.log(req.query.id);
+  mysql.query("delete from posttask where rid=?",[req.query.id], function (err, result) {
+    if (err) {
+      resp.send(err.message);
+      return;
+    } else{ 
+      
+      resp.send(result);}
+  });
+})

@@ -38,12 +38,55 @@
         document.querySelector("#email").value = activeUser;
       }
     </script>
+
+<script>
+    var module = angular.module("myModule", []);
+    var controller = module.controller(
+      "myController",
+      function ($scope, $http) {
+        $scope.jsonRecordsAry = [];
+        $scope.activeUser = localStorage.getItem("activeUser");
+    $scope.email = $scope.activeUser;
+        //   ----------Fetch-all-------------------------------
+        $scope.doFetchAll = function () {
+          let url = "/angular-fetch-allposttasks?email="+$scope.email;
+          $http.get(url).then(success, errors);
+          function success(response) {
+            $scope.jsonRecordsAry = response.data;
+          }
+          function errors(response) {
+            alert(response.data);
+          }
+        };
+        
+        //   ----------delete-------------------------------
+        $scope.dodelete = function (recid) {
+         
+
+          let url = "/dodelete?id="+recid;
+          $http.get(url).then(success, errors);
+          function success(response) {
+          //   alert(response.data);
+            window.location.reload();  
+          }
+          function errors(response) {
+            alert(response.data);
+          }
+        };
+
+
+      }
+    );
+  </script>
   </head>
-  <body onload="fetchUser();">
+  <body onload="fetchUser();" ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <h5 class="navbar-brand" style="margin-left: 50px">Samadhaan.com</h5>
-
+        <a href="/customer-Dash.html" style="text-decoration: none"
+          ><h5 class="navbar-brand" style="margin-left: 50px">
+            Samadhaan.com
+          </h5></a
+        >
         <span style="text-size-adjust: 100%; font-size: large"
           >Jobs Manager
         </span>
@@ -58,13 +101,13 @@
         <div class="col">
           <div class="form-floating">
             <input
-              type="email"
+              type="emaill"
               class="form-control mb-2"
               id="email"
               readonly
               placeholder="name@example.com"
             />
-            <label for="email">Email address</label>
+            <label for="emaill">Email address</label>
           </div>
         </div>
       </div>
@@ -97,7 +140,7 @@
               <th>
                 <a
                   class="btn btn-danger btn-sm mt-1"
-                  ng-click="doBlock(obj.emailid);"
+                  ng-click="dodelete(obj.rid);"
                   >Delete
                 </a>
                
