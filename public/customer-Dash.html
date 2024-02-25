@@ -326,7 +326,7 @@
           }
         });
 
-        $("#txttEmail").blur(function(){
+        $("#txttEmail").blur(function () {
           let obj = {
             url: "/checkkk-login-email",
             data: {
@@ -337,33 +337,25 @@
           $.ajax(obj)
             .done(function (resp) {
               $("#errEmail").html(resp);
-              if (resp === "Account does not exist.")
-              {
+              if (resp === "Account does not exist.") {
                 $("#errEmail").removeClass("ok").addClass("not-ok");
                 $("#pjbtn").prop("disabled", true);
-                
-              }
-              else{
+              } else {
                 $("#pjbtn").prop("disabled", false);
-
               }
-               
             })
             .fail(function (err) {
               alert("Error=" + err);
             });
-        })
+        });
       });
     </script>
     <!-- -----------------------------post job button----------------------------------------------------------- -->
 
     <script>
-      $(document).ready(function(){
-
-        $("#pjbtn").click(function(){
-
-          let obj={
-
+      $(document).ready(function () {
+        $("#pjbtn").click(function () {
+          let obj = {
             url: "/postjobbtn",
             data: {
               email: $("#txttEmail").val(),
@@ -373,19 +365,28 @@
               city: $("#City").val(),
               state: $("#State").val(),
               uptodate: $("#dat").val(),
-              task: $("#Taskk").val()
+              task: $("#Taskk").val(),
             },
-          }
+          };
 
-          $.ajax(obj).done(function(resp){
-            alert(resp);
-          }).fail(function(err){
+          $.ajax(obj)
+            .done(function (resp) {
+              alert(resp);
+            })
+            .fail(function (err) {
+              alert("error" + err);
+            });
+        });
+      });
+    </script>
+    <!-- ----------------------logout button----------------------- -->
 
-            alert("error"+err);
-          })
-
-
-        })
+    <script>
+      $(document).ready(function () {
+        $("#logoutbtn").click(function () {
+          localStorage.removeItem("activeUser");
+          location.href = "../first.html";
+        });
       });
     </script>
 
@@ -397,21 +398,25 @@
         document.querySelector("#auser").innerHTML = activeUser;
         document.querySelector("#txttEmail").value = activeUser;
         document.querySelector("#EMail").value = activeUser;
-
       }
     </script>
   </head>
   <body onload="fetchUser();">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-      <div class="container-fluid" >
-        <h5 class="navbar-brand " style="margin-left: 50px;">Samadhaan.com</h5>
-    
-       
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <h5 class="navbar-brand" style="margin-left: 50px">Samadhaan.com</h5>
+
         <span
-        id="auser"
-        style="text-size-adjust: 100%; font-size: large"
-      ></span>
-      
+          id="auser"
+          style="text-size-adjust: 100%; font-size: large"
+        ></span>
+        <button
+          class="btn me-2 mt-1 btn-outline-dark"
+          id="logoutbtn"
+          type="button"
+        >
+          <small>Logout</small>
+        </button>
       </div>
     </nav>
 
@@ -420,7 +425,7 @@
         <!-- ---------------------------Profile-card---------------------- -->
 
         <div class="col">
-          <div class="card" style="width: 18rem; border-style: none;">
+          <div class="card" style="width: 18rem; border-style: none">
             <img
               src="/pic/images.jpg"
               class="card-img-top rounded"
@@ -430,8 +435,7 @@
             <div class="card-body">
               <h5 class="card-title">Profile</h5>
 
-                <a type="button" href="/cp" class="btn btn-primary">Visit</a>
-             
+              <a type="button" href="/cp" class="btn btn-primary">Visit</a>
             </div>
           </div>
         </div>
@@ -439,7 +443,7 @@
         <!-- --------------------------Post-Job-card--------------------- -->
 
         <div class="col">
-          <div class="card" style="width: 18rem; border-style: none;">
+          <div class="card" style="width: 18rem; border-style: none">
             <img
               src="/pic/istockphoto-1036066936-612x612.jpg"
               class="card-img-top rounded"
@@ -492,7 +496,8 @@
                   <div class="row mt-3 mb-3">
                     <div class="col">
                       <label for="txttEmail" class="form-label"
-                        >Email Id </label>
+                        >Email Id
+                      </label>
                       <input
                         type="text"
                         class="form-control form-control-lg bg-light fs-6"
@@ -712,7 +717,7 @@
                   <!-- --------------------------POST JOB BUTTON--------------------------------- -->
 
                   <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-primary" type="button"  id="pjbtn">
+                    <button class="btn btn-primary" type="button" id="pjbtn">
                       Post Job
                     </button>
                     <span id="perr"></span>
@@ -730,7 +735,7 @@
         <!-- ---------------------------Jobs-Manager--------------------- -->
 
         <div class="col">
-          <div class="card" style="width: 18rem; border-style: none;">
+          <div class="card" style="width: 18rem; border-style: none">
             <img
               src="/pic/jobs.jpg"
               class="card-img-top rounded"
@@ -752,7 +757,7 @@
         <!-- ---------------------------Search-service-provider-card--------------------- -->
 
         <div class="col">
-          <div class="card" style="width: 18rem; border-style: none;">
+          <div class="card" style="width: 18rem; border-style: none">
             <img
               src="/pic/service provider.jpg"
               style="height: 16rem; background-size: contain"
@@ -770,7 +775,7 @@
         <!-- ---------------------------Setting-Card--------------------- -->
 
         <div class="col">
-          <div class="card" style="width: 18rem; border-style: none;">
+          <div class="card" style="width: 18rem; border-style: none">
             <img
               src="/pic/settings-6380866_1280.webp"
               style="height: 16rem; background-size: contain"
@@ -919,7 +924,7 @@
                 </li>
               </ul>
             </div>
-            <div class="col-md-3 ml-2  mr-2 item">
+            <div class="col-md-3 ml-2 mr-2 item">
               <h3>Contact us</h3>
               <ul>
                 <li><a href="#">Jalandhar Punjab</a></li>
