@@ -649,31 +649,25 @@ app.get("/angular-fetch-allserviproviders", function (req, resp) {
   });
 });
 
-app.get("/fetchRecordsByCity",function(req,resp){
+app.get("/fetchcardbycityandsercat",function(req,resp){
 
   const selectedCity = req.query.city;
+  const selectedser = req.query.cat;
+ 
 
-  mysql.query("select * from serProvider where city=?",[selectedCity], function(err,result){
+  mysql.query("select * from serProvider where city=? and serviceCat=?",[selectedCity,selectedser], function(err,result){
     if (err) {
       resp.send(err.message);
       return;
-    } else resp.send(result);
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
   });
 
 });
 
-app.get("/fetchRecordsBysercat",function(req,resp){
 
-  
-
-  mysql.query("select * from serProvider where serviceCat=?",[req.query.sercat], function(err,result){
-    if (err) {
-      resp.send(err.message);
-      return;
-    } else resp.send(result);
-  });
-
-});
 
 app.get("/getuniquecity", function (req, resp) {
   mysql.query(
@@ -690,15 +684,16 @@ app.get("/getuniquecity", function (req, resp) {
 });
 
 app.get("/getuniquesercat", function (req, resp) {
+ 
   mysql.query(
-    "select serviceCat from serProvider group by serviceCat",
+    "select serviceCat from serProvider  where city=? group by serviceCat ",[req.query.location],
     function (err, result) {
       if (err) {
         resp.send(err.message);
         return;
       } else {
         resp.send(result);
-        console.log(result);
+        
       }
     }
   );

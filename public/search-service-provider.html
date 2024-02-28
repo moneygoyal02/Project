@@ -116,12 +116,6 @@
 
             function success(response) {
               $scope.UniqueCities = response.data;
-
-              if ($scope.selectedCity) {
-                $scope.fetchRecordsByCity($scope.selectedCity);
-              } else {
-                $scope.doFetchAll();
-              }
             }
 
             function errors(response) {
@@ -129,33 +123,14 @@
             }
           };
 
-          $scope.fetchRecordsByCity = function (selectedCity) {
-            let url = "/fetchRecordsByCity?city=" + selectedCity;
-            $http.get(url).then(success, errors);
 
-            function success(response) {
-              $scope.jsonRecordsAry = response.data;
-            }
-
-            function errors(response) {
-              alert(response.data);
-            }
-          };
-
-          //-----------------------------------------------------------------
-          $scope.uniquesercat = function () {
-            let url = "/getuniquesercat";
+          // //-----------------------------------------------------------------
+          $scope.uniquesercat = function (selectedCity) {
+            let url = "/getuniquesercat?location=" + selectedCity;
             $http.get(url).then(success, errors);
 
             function success(response) {
               $scope.UniqueSercat = response.data;
-              // console.log($scope.UniqueSercat);
-
-              if ($scope.selectedsercat) {
-                $scope.fetchRecordsBysercat($scope.selectedsercat);
-              } else {
-                $scope.doFetchAll();
-              }
             }
 
             function errors(response) {
@@ -163,19 +138,25 @@
             }
           };
 
-          $scope.fetchRecordsBysercat = function (selectedsercat) {
-            let url = "/fetchRecordsBysercat?sercat=" + selectedsercat;
-            $http.get(url).then(success, errors);
+          $scope.searchh = function(){
 
-            function success(response) {
+            let url = "/fetchcardbycityandsercat?city="+$scope.selectedCity+"&cat="+$scope.selectedsercat;
+
+            $http.get(url).then(succ,errr);
+
+            function succ(response){
+
+              
               $scope.jsonRecordsAry = response.data;
-            }
 
-            function errors(response) {
+            }
+            function errr(response) {
               alert(response.data);
             }
           };
-          //-----------------------------------------------------------------
+
+        
+          // //-----------------------------------------------------------------
           $scope.showModal = function (selectedRecord) {
             $scope.selectedRecord = selectedRecord;
             $("#show").modal("show");
@@ -184,7 +165,11 @@
       );
     </script>
   </head>
-  <body ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();">
+  <body
+    ng-app="myModule"
+    ng-controller="myController"
+    ng-init="doFetchAll(); uniquecity();"
+  >
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a href="/customer-Dash.html" style="text-decoration: none"
@@ -196,13 +181,12 @@
     </nav>
 
     <div class="container mt-2 d-flex justify-content-end">
-      <div class="col-md-3" style="margin-right: 20px">
+      <div class="col-md-2" style="margin-right: 20px">
         <select
           class="form-select bg-light"
           ng-model="selectedCity"
-          ng-change="uniquecity()"
+          ng-change="uniquesercat(selectedCity)"
           aria-label="Default select example"
-          aria-placeholder="📍"
         >
           <option selected disabled value="">📍Choose city...</option>
           <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
@@ -211,21 +195,25 @@
         </select>
       </div>
       <!-- --------------------------------------------------- -->
-      <div class="col-md-3">
+      <div class="col-md-3" style="margin-right: 15px">
         <select
           class="form-select bg-light"
           ng-model="selectedsercat"
-          ng-change="uniquesercat()"
+       
           aria-label="Default select example"
-          aria-placeholder="📍"
         >
           <option selected disabled value="">
-            📍Choose service category ...
+            Choose service category ...
           </option>
           <option ng-repeat="ary in UniqueSercat" value="{{ary.serviceCat}}">
             {{ary.serviceCat}}
           </option>
         </select>
+      </div>
+      <div class="col-md-1">
+        <button type="button" ng-click="searchh()" class="btn btn-primary">
+          Search
+        </button>
       </div>
     </div>
 
