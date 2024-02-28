@@ -97,6 +97,7 @@
         function ($scope, $http) {
           $scope.jsonRecordsAry = [];
           $scope.UniqueCities = [];
+          $scope.UniqueSercat = [];
 
           $scope.doFetchAll = function () {
             let url = "/angular-fetch-allserviproviders";
@@ -108,19 +109,13 @@
               alert(response.data);
             }
           };
-
+          // --------------uniquecity--------------------------
           $scope.uniquecity = function () {
             let url = "/getuniquecity";
             $http.get(url).then(success, errors);
 
             function success(response) {
               $scope.UniqueCities = response.data;
-
-              if ($scope.selectedCity) {
-                $scope.fetchRecordsByCity($scope.selectedCity);
-              } else {
-                $scope.doFetchAll();
-              }
             }
 
             function errors(response) {
@@ -128,12 +123,14 @@
             }
           };
 
-          $scope.fetchRecordsByCity = function (selectedCity) {
-            let url = "/fetchRecordsByCity?city=" + selectedCity;
+
+          // //-----------------------------------------------------------------
+          $scope.uniquesercat = function (selectedCity) {
+            let url = "/getuniquesercat?location=" + selectedCity;
             $http.get(url).then(success, errors);
 
             function success(response) {
-              $scope.jsonRecordsAry = response.data;
+              $scope.UniqueSercat = response.data;
             }
 
             function errors(response) {
@@ -141,7 +138,25 @@
             }
           };
 
-         
+          $scope.searchh = function(){
+
+            let url = "/fetchcardbycityandsercat?city="+$scope.selectedCity+"&cat="+$scope.selectedsercat;
+
+            $http.get(url).then(succ,errr);
+
+            function succ(response){
+
+              
+              $scope.jsonRecordsAry = response.data;
+
+            }
+            function errr(response) {
+              alert(response.data);
+            }
+          };
+
+        
+          // //-----------------------------------------------------------------
           $scope.showModal = function (selectedRecord) {
             $scope.selectedRecord = selectedRecord;
             $("#show").modal("show");
@@ -150,7 +165,11 @@
       );
     </script>
   </head>
-  <body ng-app="myModule" ng-controller="myController" ng-init="doFetchAll();">
+  <body
+    ng-app="myModule"
+    ng-controller="myController"
+    ng-init="doFetchAll(); uniquecity();"
+  >
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a href="/admin" style="text-decoration: none"
@@ -161,31 +180,46 @@
       </div>
     </nav>
 
-    <div
-      class="container mt-2"
-      style="width: 308px; height: 48px; margin-left: 75%"
-    >
-      <div class="row">
-        <div class="col">
-          <select
-            class="form-select bg-light"
-            ng-model="selectedCity"
-            ng-change="uniquecity()"
-            aria-label="Default select example"
-            aria-placeholder="📍"
-          >
-            <option selected disabled value="">📍Choose...</option>
-            <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
-              {{obj.city}}
-            </option>
-          </select>
-        </div>
+    <div class="container mt-2 d-flex justify-content-end">
+      <div class="col-md-2" style="margin-right: 20px">
+        <select
+          class="form-select bg-light"
+          ng-model="selectedCity"
+          ng-change="uniquesercat(selectedCity)"
+          aria-label="Default select example"
+        >
+          <option selected disabled value="">📍Choose city...</option>
+          <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
+            {{obj.city}}
+          </option>
+        </select>
+      </div>
+      <!-- --------------------------------------------------- -->
+      <div class="col-md-3" style="margin-right: 15px">
+        <select
+          class="form-select bg-light"
+          ng-model="selectedsercat"
+       
+          aria-label="Default select example"
+        >
+          <option selected disabled value="">
+            Choose service category ...
+          </option>
+          <option ng-repeat="ary in UniqueSercat" value="{{ary.serviceCat}}">
+            {{ary.serviceCat}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <button type="button" ng-click="searchh()" class="btn btn-primary">
+          Search
+        </button>
       </div>
     </div>
 
-    <div class="container mt-2 mb-5" style="margin-left: 8%;">
+    <div class="container mt-2 mb-5">
       <div class="row">
-        <div class="col-md-3 mt-3" ng-repeat="obj in jsonRecordsAry">
+        <div class="col-md-3 mt-3" ng-repeat="obj in jsonRecordsAry ">
           <div
             class="card mb-3"
             style="
@@ -195,18 +229,20 @@
               border-style: none;
             "
           >
-            <img
-              ng-src="/uploads/{{obj.ppic}}"
-              class="card-img-top rounded"
-              style="height: 222px; width: 192px"
-            />
+          <img
+          ng-src="/uploads/{{obj.ppic}}"
+          class="card-img-top rounded"
+          style="height: 222px; width: 192px"
+          ng-click="showModal(obj)"
+      />
+      
             <div class="card-body">
               <h5 class="card-title">{{obj.emailid}}</h5>
               <p class="card-text">Name: {{obj.FName}}</p>
               <p class="card-text">Service: {{obj.serviceCat}}</p>
-              <button class="btn btn-primary" ng-click="showModal(obj)">
+              <!-- <button class="btn btn-primary" ng-click="showModal(obj)">
                 Show Full Details
-              </button>
+              </button> -->
 
               <!--  -----------------------------------------------------------Modal-------------------------------------------------------... -->
 

@@ -22,5 +22,7 @@ create table serProvider(emailid varchar(30) primary key, FName varchar(30) ,  c
 select * from serProvider ; 
 drop table serProvider;
 
+select serviceCat from serProvider where city="Bathinda" group by serviceCat ;
+select * from serProvider where city="jalandhar" and serviceCat="roofing";
 
 
