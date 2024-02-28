@@ -661,7 +661,7 @@ app.get("/fetchcardbycityandsercat",function(req,resp){
       return;
     } else {
       resp.send(result);
-      console.log(result);
+      // console.log(result);
     }
   });
 
