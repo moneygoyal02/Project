@@ -180,13 +180,14 @@
       </div>
     </nav>
 
-    <div class="container mt-2 d-flex justify-content-end">
-      <div class="col-md-2" style="margin-right: 20px">
+    <div class="container mt-2 d-flex justify-content-start">
+      <div class="col-md-2" style="margin-right: 10px;" >
         <select
           class="form-select bg-light"
           ng-model="selectedCity"
           ng-change="uniquesercat(selectedCity)"
           aria-label="Default select example"
+          
         >
           <option selected disabled value="">📍Choose city...</option>
           <option ng-repeat="obj in UniqueCities" value="{{obj.city}}">
@@ -233,16 +234,16 @@
           ng-src="/uploads/{{obj.ppic}}"
           class="card-img-top rounded"
           style="height: 222px; width: 192px"
-          ng-click="showModal(obj)"
+          
       />
-      
+      <!-- ng-click="showModal(obj)" -->
             <div class="card-body">
               <h5 class="card-title">{{obj.emailid}}</h5>
               <p class="card-text">Name: {{obj.FName}}</p>
               <p class="card-text">Service: {{obj.serviceCat}}</p>
-              <!-- <button class="btn btn-primary" ng-click="showModal(obj)">
+              <button class="btn btn-primary" ng-click="showModal(obj)">
                 Show Full Details
-              </button> -->
+              </button>
 
               <!--  -----------------------------------------------------------Modal-------------------------------------------------------... -->
 
